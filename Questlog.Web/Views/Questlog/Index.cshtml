@@ -1,0 +1,28 @@
+﻿@model Questlog.Web.Models.Questlog[]
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Questlogs</title>
+    <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
+</head>
+<body>
+    <h2>Questlogs</h2>
+    <ul>
+        @foreach (var questlog in Model)
+        {
+            <li>
+                @questlog.Title
+                @questlog.Description
+                <h6>Objectives</h6>
+                <ul>
+                    @foreach (var objective in questlog.Objectives)
+                    {
+                        <li>@objective.Value</li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</body>
+</html>

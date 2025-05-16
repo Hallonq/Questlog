@@ -1,5 +1,6 @@
-﻿@model Questlog.Web.Models.Questlog[]
+﻿@model ListAllQuestsViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,21 +9,20 @@
 </head>
 <body>
     <h2>Questlogs</h2>
-    <ul>
-        @foreach (var questlog in Model)
-        {
-            <li>
-                @questlog.Title
-                @questlog.Description
-                <h6>Objectives</h6>
-                <ul>
-                    @foreach (var objective in questlog.Objectives)
-                    {
-                        <li>@objective.Value</li>
-                    }
-                </ul>
-            </li>
-        }
-    </ul>
+    <div>
+        <a asp-action="Create">Create new Quest</a>
+    </div>
+    @foreach (var questlog in Model.Quests)
+    {
+        <h3>@questlog.Title</h3>
+        <p>@questlog.Description</p>
+        <h6>Objectives</h6>
+        <ul>
+            @foreach (var objective in questlog.Objectives)
+            {
+                <li><p>@objective</p></li>
+            }
+        </ul>
+    }
 </body>
 </html>

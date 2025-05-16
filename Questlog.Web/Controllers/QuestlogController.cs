@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Questlog.Web.Services;
+using Questlog.Web.ViewModels;
 
 namespace Questlog.Web.Controllers;
 public class QuestlogController : Controller
@@ -19,26 +20,25 @@ public class QuestlogController : Controller
     [HttpGet(nameof(Create))]
     public IActionResult Create()
     {
-        return View();
+        var model = new CreateQuestViewModel();
+        return View(model);
     }
 
     [HttpPost(nameof(Create))]
-    public IActionResult Create(Models.Questlog questlog)
+    public IActionResult Create(CreateQuestViewModel model)
     {
         if (!ModelState.IsValid)
         {
-            return View(questlog);
+            return View(model);
         }
-
         try
         {
-            _questlogService.Create(questlog);
+            _questlogService.Create(model);
         }
         catch (Exception e)
         {
-            throw;
+            throw new Exception(e.Message);
         }
-
         return RedirectToAction(nameof(Index));
     }
 }

@@ -1,0 +1,82 @@
+﻿@model CreateQuestViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create</title>
+    <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
+</head>
+<body>
+    <h1>Create</h1>
+    <h4>Questlog</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" id="objectiveInput" class="form-control" placeholder="Write an objective..." />
+                    <button type="button" id="addObjectiveBtn" class="btn btn-secondary mt-2">Add Objective</button>
+                </div>
+
+                <ul id="objectiveList">
+                    @for (int i = 0; i < Model.Objectives.Count; i++)
+                    {
+                        <li>
+                            @Model.Objectives[i]
+                            <input type="hidden" name="Objectives[@i]" value="@Model.Objectives[i]" />
+                        </li>
+                    }
+                </ul>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to Questlog</a>
+    </div>
+</body>
+</html>
+
+<script>
+    let index = @Model.Objectives.Count
+
+    document.getElementById("addObjectiveBtn").addEventListener("click", function () {
+        const input = document.getElementById("objectiveInput");
+        const value = input.value.trim();
+
+        if (value === "") return;
+
+        // Create <li>
+        const li = document.createElement("li");
+        li.textContent = value;
+
+        // Create corresponding hidden input
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = `Objectives[${index}]`;
+        hiddenInput.value = value;
+
+        li.appendChild(hiddenInput);
+        document.getElementById("objectiveList").appendChild(li);
+
+        // Clear input and increment index
+        input.value = "";
+        index++;
+    });
+</script>

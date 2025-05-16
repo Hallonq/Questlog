@@ -14,10 +14,4 @@ public class Questlog
         Description = description;
         Objectives = objectives;
     }
-
-    //// for creating new entities
-    //public Questlog()
-    //{
-    //    Objectives = new();
-    //}
 }

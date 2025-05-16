@@ -5,7 +5,7 @@ using Questlog.Web.ViewModels;
 namespace Questlog.Web.Controllers;
 public class QuestlogController : Controller
 {
-    private static QuestlogService _questlogService;
+    private readonly QuestlogService _questlogService;
     public QuestlogController(QuestlogService questlogService)
     {
         _questlogService = questlogService;
@@ -27,6 +27,10 @@ public class QuestlogController : Controller
     [HttpPost(nameof(Create))]
     public IActionResult Create(CreateQuestViewModel model)
     {
+        if (model.Objectives.Any(string.IsNullOrWhiteSpace))
+        {
+            ModelState.AddModelError("Objectives", "Objectives cannot be empty or whitespace");
+        }
         if (!ModelState.IsValid)
         {
             return View(model);

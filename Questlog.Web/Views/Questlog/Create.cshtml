@@ -15,17 +15,19 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    <span asp-validation-for="Title" class="text-danger"></span>
                     <label asp-for="Title" class="control-label"></label>
                     <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <span asp-validation-for="Description" class="text-danger"></span>
                     <label asp-for="Description" class="control-label"></label>
                     <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
+                    <span asp-validation-for="Objectives" class="text-danger"></span>
+                    <label asp-for="Objectives" class="control-label"></label>
                     <input type="text" id="objectiveInput" class="form-control" placeholder="Write an objective..." />
                     <button type="button" id="addObjectiveBtn" class="btn btn-secondary mt-2">Add Objective</button>
                 </div>
